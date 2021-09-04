@@ -121,7 +121,7 @@ export default function UserHome({ adminBasicData }) {
 
   const COLORS = ['#4f2e8c', '#b438c7', '#2da1c4'];
   return (
-    <div>
+    <div style={{ "margin-bottom": "61px" }}>
       <Container>
         <Card>
           <CardContent>

@@ -9,7 +9,7 @@ export default function appFooter() {
     <Box
       style={{
         backgroundColor: "#194b8c",
-        position: 'fixed',
+        position: "fixed",
         left: 0,
         bottom: 0,
         width: "100%",
@@ -22,7 +22,7 @@ export default function appFooter() {
         direction="column"
         alignItems="center"
         justify="center"
-        style={{ minHeight: "8vh" }}
+        style={{ minHeight: "4vh" }}
       >
         <Grid item xs={12}>
           <Typography style={{ color: "white" }}>
