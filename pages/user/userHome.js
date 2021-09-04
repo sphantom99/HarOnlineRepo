@@ -92,7 +92,7 @@ export default function UserHome() {
             if (head.name === 'cache-control') {
               const temp = head.value.split(',').map((item) => {
                 if (item.includes('max-age')) {
-                  const maxAge = item.split(/=|:/);
+                  const maxAge = item.split(/=|:| /);
                   // console.log('Before', parseInt(maxAge[1].trim()));
                   obj['maxAge'] = parseInt(maxAge[1].trim()) === 0 || parseInt(maxAge[1].trim()) === null
                     ? undefined
