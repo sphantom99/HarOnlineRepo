@@ -1,30 +1,29 @@
 /* eslint-disable no-loop-func */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable consistent-return */
-import { MongoClient } from 'mongodb';
-import axios from 'axios';
+import { MongoClient } from "mongodb";
+import axios from "axios";
 
 export default async function getLineMapData(req, res) {
   try {
     const client = new MongoClient(process.env.MONGO_URI);
     await client.connect();
-    const db = client.db('WEB');
-    const collection = db.collection('Entries');
-
+    const db = client.db("WEB");
+    const collection = db.collection("entries");
     let ipsPerUser = await collection
       .aggregate([
         {
           $group: {
-            _id: '$clientCoordinates',
-            ips: { $addToSet: '$serverIPAddress' },
+            _id: "$clientCoordinates",
+            ips: { $addToSet: "$serverIPAddress" },
           },
         },
         { $sort: { serverIPAddress: 1 } },
         {
           $project: {
             _id: 0,
-            client: '$_id',
-            ips: '$ips',
+            client: "$_id",
+            ips: "$ips",
           },
         },
       ])
@@ -33,7 +32,7 @@ export default async function getLineMapData(req, res) {
       .aggregate([
         {
           $group: {
-            _id: '$serverIPAddress',
+            _id: "$serverIPAddress",
             count: { $sum: 1 },
           },
         },
@@ -41,30 +40,36 @@ export default async function getLineMapData(req, res) {
         {
           $project: {
             _id: 0,
-            ip: '$_id',
+            ip: "$_id",
             count: 1,
             sum: 1,
           },
         },
       ])
       .toArray();
-    const uniqueIps = await collection.distinct('serverIPAddress');
+    const uniqueIps = await collection.distinct("serverIPAddress");
+    // countPerIp = countPerIp.map((item) => ({
+    //   count: item.count,
+    //   ip: item.ip?.replace('[', '').replace(']', ''),
+    // }));
     ipsPerUser = ipsPerUser.map((item) => ({
       client: item.client,
-      ips: item.ips.filter((countIp) => countIp !== ''),
+      ips: item.ips.filter((countIp) => countIp !== ""),
     }));
     const countWithIps = ipsPerUser.map((item) => ({
       client: item.client,
-      ipCount: item.ips.map((ip) => countPerIp.filter((countIp) => countIp.ip === ip)[0]),
+      ipCount: item.ips.map(
+        (ip) => countPerIp.filter((countIp) => countIp.ip === ip)[0]
+      ),
     }));
-    console.log(uniqueIps.length);
+
     let ipCoordinates = [];
     const clearUniqueIps = [];
     if (uniqueIps.length <= 100) {
       await axios
-        .post('http://ip-api.com/batch', uniqueIps, {
+        .post("http://ip-api.com/batch", uniqueIps, {
           headers: {
-            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-Origin": "*",
           },
         })
         .then((response) => {
@@ -75,7 +80,7 @@ export default async function getLineMapData(req, res) {
                 ip: item.query,
                 latitude: item.lat,
                 longitude: item.lon,
-              })),
+              }))
             );
             return response.data;
           }
@@ -85,7 +90,7 @@ export default async function getLineMapData(req, res) {
         });
     } else if (uniqueIps.length > 100) {
       uniqueIps.map((item) => {
-        if (item !== '') {
+        if (item !== "") {
           clearUniqueIps.push(item);
         }
       });
@@ -99,11 +104,15 @@ export default async function getLineMapData(req, res) {
         if (i !== rounds - 1) {
           // console.log(`slice(${i * 100}, ${(i + 1) * 100})`);
           await axios
-            .post('http://ip-api.com/batch', clearUniqueIps.slice(i * 100, (i + 1) * 100), {
-              headers: {
-                'Access-Control-Allow-Origin': '*',
-              },
-            })
+            .post(
+              "http://ip-api.com/batch",
+              clearUniqueIps.slice(i * 100, (i + 1) * 100),
+              {
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                },
+              }
+            )
             .then((response) => {
               if (response.status === 200) {
                 // console.log(response.data);
@@ -112,7 +121,7 @@ export default async function getLineMapData(req, res) {
                     ip: item.query,
                     latitude: item.lat,
                     longitude: item.lon,
-                  })),
+                  }))
                 );
                 return response.data;
               }
@@ -120,9 +129,9 @@ export default async function getLineMapData(req, res) {
         } else {
           // console.log(`slice(${i * 100})`);
           await axios
-            .post('http://ip-api.com/batch', clearUniqueIps.slice(i * 100), {
+            .post("http://ip-api.com/batch", clearUniqueIps.slice(i * 100), {
               headers: {
-                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Origin": "*",
               },
             })
             .then((response) => {
@@ -133,7 +142,7 @@ export default async function getLineMapData(req, res) {
                     ip: item.query,
                     latitude: item.lat,
                     longitude: item.lon,
-                  })),
+                  }))
                 );
                 return response.data;
               }
@@ -142,7 +151,7 @@ export default async function getLineMapData(req, res) {
       }
     }
     console.log(ipsPerUser);
-    res.json({ countWithIps, ipCoordinates });
+    res.json({ countWithIps, ipCoordinates, ipsPerUser });
   } catch (err) {
     console.log(err);
   }
