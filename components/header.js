@@ -23,7 +23,7 @@ export default function header({ user, changeUserState, isAdmin }) {
     const resp = await axios.post('/api/logout');
     console.log(resp);
     changeUserState(null);
-    router.push('login');
+    router.push('/login');
   }
   return (
     <div style={{ flexGrow: 1 }}>
