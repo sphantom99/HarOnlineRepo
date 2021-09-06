@@ -45,7 +45,7 @@ export default function MyApp(props) {
         <CssBaseline />
         <authContext.Provider value={userState?? null}>
         <Header user={userState} isAdmin={adminState} changeUserState={setuserState}/>
-        {(userState && router.pathname !== '/admin/adminHome') || router.pathname === '/register' || (adminState && router.pathname === '/admin/adminHome') ? <Component {...pageProps} /> : <Login />}
+        {(userState && router.pathname !== '/admin/adminHome') || router.pathname === '/register' || router.pathname === '/' || (adminState && router.pathname === '/admin/adminHome') ? <Component {...pageProps} /> : <Login />}
         <AppFooter />
         </authContext.Provider>
       </ThemeProvider>

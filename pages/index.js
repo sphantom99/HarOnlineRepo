@@ -26,7 +26,9 @@ export default function Index() {
                 Upload your files. <br />
                 View your file's analysis.
               </p>
-              <a href="/user/userHome">Take me there !</a>
+              <a href="/login">Login !</a>
+              {' or '}
+              <a href="/register">Register !</a>
             </div>
           </div>
         </div>
