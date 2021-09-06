@@ -5,11 +5,11 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
-// import ReactDOM from 'react-dom';
-
+import LocationOnIcon from "@material-ui/icons/LocationOn";
+import TimelineIcon from "@material-ui/icons/Timeline";
+import { Card, CardContent, Container, Typography } from "@material-ui/core";
 import ReactMapGL, { Source, Layer, SVGOverlay } from "react-map-gl";
-/* eslint-disable react/prefer-stateless-function */
-// import dynamic from 'next/dynamic';
+
 import axios from "axios";
 
 const normalize = require("normalize-number");
@@ -22,7 +22,6 @@ export async function getServerSideProps() {
     .get("http://localhost:3000/api/getLineMapData")
     .then((response) => {
       if (response.status === 200) {
-        // console.log(response.data);
         return response.data;
       }
     })
@@ -37,11 +36,8 @@ export async function getServerSideProps() {
 }
 
 export default function MapChart(props) {
-
   const { countWithIps, ipCoordinates } = props.info;
-  // console.log('this is ip count', countWithIps);
 
-  // console.log('clear coo', clearCoordinates);
   countWithIps.map((client) =>
     client.ipCount.map((item) => {
       const { latitude, longitude } = ipCoordinates.filter(
@@ -52,14 +48,11 @@ export default function MapChart(props) {
     })
   );
 
-  // console.log(countWithIps);
   const [viewport, setViewport] = React.useState({
     latitude: 21.823189401709563,
     longitude: 38.31372289601443,
     zoom: 2,
   });
-  // const myGeoJSONData = makeGeoJSON(countWithIps);
-  // console.log(myGeoJSONData);
   const lineArray = [];
   countWithIps.map((clientItter) => {
     clientItter.ipCount.map((item) => {
@@ -85,48 +78,52 @@ export default function MapChart(props) {
     type: "FeatureCollection",
     features: lineArray,
   };
-  // const temp = countWithIps[0].map((client) => {
-  //   client.ipCount.map((item) => ({
-  //     type: 'Feature',
-  //     properties: {
-  //       id: client.ip,
-  //       value: client.ip,
-  //       lineWidth: item.width,
-  //     },
-  //     geometry: {
-  //       type: 'LineString',
-  //       coordinates: [
-  //         [client.long, client.lat],
-  //         [item.coordinates.long, item.coordinates.lat],
-  //       ],
-  //     },
-  //   }));
-  // });
-  // console.log(temp);
   return (
-    <ReactMapGL
-      {...viewport}
-      id="map"
-      width="1300px"
-      height="1000px"
-      onViewportChange={setViewport}
-      mapboxApiAccessToken={mapBoxToken}
-    >
-      <Source id="polylineLayer" type="geojson" data={multipleLines}>
-        <Layer
-          id="lineLayer"
-          type="line"
-          source="polylineLayer"
-          layout={{
-            "line-join": "round",
-            "line-cap": "round",
-          }}
-          paint={{
-            "line-color": "rgba(3, 170, 238, 0.5)",
-            "line-width": ["get", "lineWidth"],
-          }}
-        />
-      </Source>
-    </ReactMapGL>
+    <div style={{ "margin-bottom": "61px" }}>
+      <Container>
+        <Card>
+          <CardContent>
+            <Typography
+              variant="h4"
+              style={{ marginBottom: "4%", marginLeft: "35%" }}
+            >
+              Welcome to ArcMap
+            </Typography>
+            <ReactMapGL
+              {...viewport}
+              id="map"
+              width="1120px"
+              height="1000px"
+              onViewportChange={setViewport}
+              mapboxApiAccessToken={mapBoxToken}
+            >
+              <Source id="polylineLayer" type="geojson" data={multipleLines}>
+                <Layer
+                  id="lineLayer"
+                  type="line"
+                  source="polylineLayer"
+                  layout={{
+                    "line-join": "round",
+                    "line-cap": "round",
+                  }}
+                  paint={{
+                    "line-color": "rgba(3, 170, 238, 0.5)",
+                    "line-width": ["get", "lineWidth"],
+                  }}
+                />
+              </Source>
+            </ReactMapGL>
+            <p>
+              <LocationOnIcon />
+              Here you can see all the places to which you have sent a request.
+              <br />
+              <TimelineIcon />
+              The thicker the arc, the more requests you have sent to that
+              location.
+            </p>
+          </CardContent>
+        </Card>
+      </Container>
+    </div>
   );
 }

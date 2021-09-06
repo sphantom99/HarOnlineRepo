@@ -3,66 +3,46 @@
 /* eslint-disable no-return-assign */
 /* eslint-disable array-callback-return */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useState, useEffect, useMemo } from 'react';
-import axios from 'axios';
-import MapGL, { Source, Layer } from 'react-map-gl';
-
-function filterFeaturesByDay(featureCollection, time) {
-  const date = new Date(time);
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDate();
-  const features = featureCollection.features.filter((feature) => {
-    const featureDate = new Date(feature.properties.time);
-    return (
-      featureDate.getFullYear() === year
-      && featureDate.getMonth() === month
-      && featureDate.getDate() === day
-    );
-  });
-  return { type: 'FeatureCollection', features };
-}
-const mapBoxToken = 'pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ';
+import React, { useState } from "react";
+import axios from "axios";
+import MapGL, { Source, Layer } from "react-map-gl";
+import { Card, CardContent, Container, Typography } from "@material-ui/core";
+import AlbumIcon from "@material-ui/icons/Album";
+const mapBoxToken =
+  "pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ";
 const heatmapLayer = {
   maxzoom: 9,
-  type: 'heatmap',
+  type: "heatmap",
   paint: {
-    // Increase the heatmap weight based on frequency and property magnitude
-    'heatmap-weight': ['interpolate', ['linear'], ['get', 'mag'], 0, 0, 6, 1],
-    // Increase the heatmap color weight weight by zoom level
-    // heatmap-intensity is a multiplier on top of heatmap-weight
-    'heatmap-intensity': ['interpolate', ['linear'], ['zoom'], 0, 1, 9, 3],
-    // Color ramp for heatmap.  Domain is 0 (low) to 1 (high).
-    // Begin color ramp at 0-stop with a 0-transparancy color
-    // to create a blur-like effect.
-    'heatmap-color': [
-      'interpolate',
-      ['linear'],
-      ['heatmap-density'],
+    "heatmap-weight": ["interpolate", ["linear"], ["get", "mag"], 0, 0, 6, 1],
+    "heatmap-intensity": ["interpolate", ["linear"], ["zoom"], 0, 1, 9, 3],
+    "heatmap-color": [
+      "interpolate",
+      ["linear"],
+      ["heatmap-density"],
       0,
-      'rgba(33,102,172,0)',
+      "rgba(33,102,172,0)",
       0.2,
-      'rgb(103,169,207)',
+      "rgb(103,169,207)",
       0.4,
-      'rgb(209,229,240)',
+      "rgb(209,229,240)",
       0.6,
-      'rgb(253,219,199)',
+      "rgb(253,219,199)",
       0.8,
-      'rgb(239,138,98)',
+      "rgb(239,138,98)",
       0.9,
-      'rgb(255,201,101)',
+      "rgb(255,201,101)",
     ],
-    // Adjust the heatmap radius by zoom level
-    'heatmap-radius': ['interpolate', ['linear'], ['zoom'], 0, 2, 9, 20],
-    // Transition from heatmap to circle layer by zoom level
-    'heatmap-opacity': ['interpolate', ['linear'], ['zoom'], 7, 1, 9, 0],
+    "heatmap-radius": ["interpolate", ["linear"], ["zoom"], 0, 2, 9, 20],
+    "heatmap-opacity": ["interpolate", ["linear"], ["zoom"], 7, 1, 9, 0],
   },
 };
 export async function getServerSideProps(context) {
   console.log(context.query.id);
   const uniqueIps = await axios
-    .post('http://localhost:3000/api/getHeatmapData', { username: context.query.id })
-    // eslint-disable-next-line
+    .post("http://localhost:3000/api/getHeatmapData", {
+      username: context.query.id,
+    })
     .then((response) => {
       if (response.status === 200) {
         console.log(response.data);
@@ -78,57 +58,35 @@ export async function getServerSideProps(context) {
 }
 export default function heatmap(props) {
   const { uniqueIps } = props;
-  //   const [allDays, useAllDays] = useState(true);
-  //   const [timeRange, setTimeRange] = useState([0, 0]);
-  //   const [selectedTime, selectTime] = useState(0);
-  //   const [earthquakes, setEarthQuakes] = useState(null);
 
-  //   useEffect(() => {
-  //     fetch('https://docs.mapbox.com/mapbox-gl-js/assets/earthquakes.geojson')
-  //       .then((resp) => resp.json())
-  //       .then((json) => {
-  //         const { features } = json;
-  //         const endTime = features[0].properties.time;
-  //         const startTime = features[features.length - 1].properties.time;
-
-  //         setTimeRange([startTime, endTime]);
-  //         setEarthQuakes(json);
-  //         selectTime(endTime);
-  //       });
-  //   }, []);
-
-  //   const data = useMemo(
-  //     () => (allDays ? earthquakes : filterFeaturesByDay(earthquakes, selectedTime)),
-  //     [earthquakes, allDays, selectedTime],
-  //   );
   const test = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     crs: {
-      type: 'name',
+      type: "name",
       properties: {
-        name: 'urn:ogc:def:crs:OGC:1.3:CRS84',
+        name: "urn:ogc:def:crs:OGC:1.3:CRS84",
       },
     },
     features: [
       {
-        type: 'Feature',
+        type: "Feature",
         properties: {
-          id: 'ak16994521',
+          id: "ak16994521",
           mag: 2.3,
         },
         geometry: {
-          type: 'Point',
+          type: "Point",
           coordinates: [-151.5129, 63.1016],
         },
       },
       {
-        type: 'Feature',
+        type: "Feature",
         properties: {
-          id: 'ak16994519',
+          id: "ak16994519",
           mag: 1.7,
         },
         geometry: {
-          type: 'Point',
+          type: "Point",
           coordinates: [-150.4048, 63.1224],
         },
       },
@@ -136,20 +94,20 @@ export default function heatmap(props) {
   };
   console.log(uniqueIps);
   const data = uniqueIps.map((item) => ({
-    type: 'Feature',
+    type: "Feature",
     properties: {
-      id: 'paulihno',
+      id: "paulihno",
       mag: 1.7,
     },
     geometry: {
-      type: 'Point',
+      type: "Point",
       coordinates: [item.long, item.lat],
     },
   }));
   const format = {
-    type: 'FeatureCollection',
+    type: "FeatureCollection",
     crs: {
-      type: 'name',
+      type: "name",
       properties: {},
     },
     features: data,
@@ -162,19 +120,49 @@ export default function heatmap(props) {
     pitch: 0,
   });
   return (
-    <MapGL
-      {...viewport}
-      width="1300px"
-      height="1000px"
-      mapStyle="mapbox://styles/mapbox/dark-v9"
-      onViewportChange={setViewport}
-      mapboxApiAccessToken={mapBoxToken}
-    >
-      {format && (
-        <Source type="geojson" data={format}>
-          <Layer {...heatmapLayer} />
-        </Source>
-      )}
-    </MapGL>
+    <div style={{ "margin-bottom": "61px" }}>
+      <Container>
+        <Card>
+          <CardContent>
+            <Typography
+              variant="h4"
+              style={{ marginBottom: "4%", marginLeft: "35%" }}
+            >
+              Welcome to HeatMap
+            </Typography>
+            <MapGL
+              {...viewport}
+              width="1120px"
+              height="1000px"
+              // mapStyle="mapbox://styles/mapbox/dark-v9"
+              onViewportChange={setViewport}
+              mapboxApiAccessToken={mapBoxToken}
+            >
+              {format && (
+                <Source type="geojson" data={format}>
+                  <Layer {...heatmapLayer} />
+                </Source>
+              )}
+            </MapGL>
+            <p>
+              <AlbumIcon />
+              Here you can see all the places to which you have sent a request.
+              <br />
+              <AlbumIcon />
+              The more yellow is a point, the more requests you have sent to
+              that exact location.
+              <br />
+              <AlbumIcon />
+              If a location is faint blue, then it means it has received, just a
+              few requests.
+              <br />
+              <AlbumIcon />
+              All intensity of the colors has be normalized, according to the
+              number of requests sent that place.
+            </p>
+          </CardContent>
+        </Card>
+      </Container>
+    </div>
   );
 }
