@@ -12,6 +12,7 @@ import AppFooter from '../components/footer';
 import { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import Login from '../components/loginComponent';
+import '../styles/landing.css';
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
 export const authContext = createContext();
