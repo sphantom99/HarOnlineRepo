@@ -1,27 +1,25 @@
-import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Container from '@material-ui/core/Container';
-import axios from 'axios';
-import { useRouter } from 'next/router';
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
+      {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
         HarOnline
-      </Link>
-      {' '}
-      {new Date().getFullYear()}
-      .
+      </Link>{" "}
+      {new Date().getFullYear()}.
     </Typography>
   );
 }
@@ -37,9 +35,14 @@ export default function Login() {
     console.log(emailValue, password);
     let success;
     try {
-      success = await axios.post('/api/login', { email: emailValue, password });
+      success = await axios.post("/api/login", { email: emailValue, password });
       console.log(success);
-      if (success) router.push('/user/userHome');
+      if (success) {
+        if (router.pathname === "/login"){window.location = '/user/userHome'}
+        else {
+          router.reload();
+        }
+      }
     } catch (err) {
       console.log(err);
       setWrongCreds(true);
@@ -53,8 +56,8 @@ export default function Login() {
           Sign in
         </Typography>
         {wrongCreds && (
-          <Box style={{ display: 'flex', paddingLeft: '20%' }}>
-            <Typography variant="subtitle1" style={{ color: 'red' }}>
+          <Box style={{ display: "flex", paddingLeft: "20%" }}>
+            <Typography variant="subtitle1" style={{ color: "red" }}>
               Username or password Incorrect..
             </Typography>
           </Box>

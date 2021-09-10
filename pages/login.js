@@ -38,12 +38,15 @@ export default function SignIn() {
     let success;
     try {
       success = await axios.post('/api/login', { email: emailValue, password });
+      if(success){
+        window.location = '/user/userHome';
+        // router.push('/user/userHome');
+      }
     } catch (err) {
       console.log(err);
       setWrongCreds(true);
     }
     console.log(success);
-    router.push('/user/userHome');
   }
   return (
     <Container component="main" maxWidth="xs">
