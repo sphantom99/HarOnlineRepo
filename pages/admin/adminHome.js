@@ -174,7 +174,7 @@ export default function UserHome({ adminBasicData }) {
   return (
     <div style={{ "margin-bottom": "61px" }}>
       <Container>
-        <Card>
+        <Card style={{ "border-radius": "25px" }}>
           <CardContent>
             <Box
               style={{

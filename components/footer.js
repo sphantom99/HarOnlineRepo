@@ -8,7 +8,7 @@ export default function appFooter() {
   return (
     <Box
       style={{
-        backgroundColor: "#194b8c",
+        backgroundColor: "#112",
         position: "fixed",
         left: 0,
         bottom: 0,

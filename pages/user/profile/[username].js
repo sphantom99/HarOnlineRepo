@@ -47,7 +47,7 @@ export default function profile({ username }) {
   }, []);
   return (
     <Container>
-      <Card>
+      <Card style={{ "border-radius": "25px" }}>
         <CardContent>
           <Box
             style={{
@@ -144,14 +144,14 @@ export default function profile({ username }) {
             </AccordionDetails>
           </Accordion>
         </CardContent>
+        <Button
+          onClick={() => router.push(`/user/${username}/heatmap`)}
+          fullWidth
+          variant="contained"
+        >
+          Visualise Your Data
+        </Button>
       </Card>
-      <Button
-        onClick={() => router.push(`/user/${username}/heatmap`)}
-        fullWidth
-        variant="contained"
-      >
-        Visualise Your Data
-      </Button>
     </Container>
   );
 }
