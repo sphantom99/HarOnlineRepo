@@ -59,44 +59,11 @@ export async function getServerSideProps(context) {
 export default function heatmap(props) {
   const { uniqueIps } = props;
 
-  const test = {
-    type: "FeatureCollection",
-    crs: {
-      type: "name",
-      properties: {
-        name: "urn:ogc:def:crs:OGC:1.3:CRS84",
-      },
-    },
-    features: [
-      {
-        type: "Feature",
-        properties: {
-          id: "ak16994521",
-          mag: 2.3,
-        },
-        geometry: {
-          type: "Point",
-          coordinates: [-151.5129, 63.1016],
-        },
-      },
-      {
-        type: "Feature",
-        properties: {
-          id: "ak16994519",
-          mag: 1.7,
-        },
-        geometry: {
-          type: "Point",
-          coordinates: [-150.4048, 63.1224],
-        },
-      },
-    ],
-  };
   console.log(uniqueIps);
   const data = uniqueIps.map((item) => ({
     type: "Feature",
     properties: {
-      id: "paulihno",
+      id: "randomName",
       mag: 1.7,
     },
     geometry: {
@@ -113,9 +80,9 @@ export default function heatmap(props) {
     features: data,
   };
   const [viewport, setViewport] = useState({
-    latitude: 40,
-    longitude: -100,
-    zoom: 3,
+    latitude: 10,
+    longitude: 0,
+    zoom: 2,
     bearing: 0,
     pitch: 0,
   });
@@ -134,7 +101,6 @@ export default function heatmap(props) {
               {...viewport}
               width="1120px"
               height="1000px"
-              // mapStyle="mapbox://styles/mapbox/dark-v9"
               onViewportChange={setViewport}
               mapboxApiAccessToken={mapBoxToken}
             >

@@ -49,8 +49,8 @@ export default function MapChart(props) {
   );
 
   const [viewport, setViewport] = React.useState({
-    latitude: 21.823189401709563,
-    longitude: 38.31372289601443,
+    latitude: 10,
+    longitude: 0,
     zoom: 2,
   });
   const lineArray = [];
