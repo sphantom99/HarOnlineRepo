@@ -9,7 +9,7 @@ export default async function getLineMapData(req, res) {
     const client = new MongoClient(process.env.MONGO_URI);
     await client.connect();
     const db = client.db("WEB");
-    const collection = db.collection("entries");
+    const collection = db.collection("Entries");
     let ipsPerUser = await collection
       .aggregate([
         {

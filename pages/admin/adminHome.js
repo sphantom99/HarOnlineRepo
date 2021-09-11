@@ -147,13 +147,13 @@ export default function UserHome({ adminBasicData }) {
     }
   }, [pie2ContentFilter, pie2IspFilter]);
   const daysOfTheWeek = [
-    { label: "Monday", value: 1 },
-    { label: "Tuesday", value: 2 },
-    { label: "Wednesday", value: 3 },
-    { label: "Thurday", value: 4 },
-    { label: "Friday", value: 5 },
-    { label: "Saturday", value: 6 },
-    { label: "Sunday", value: 7 },
+    { label: "Monday" },
+    { label: "Tuesday" },
+    { label: "Wednesday" },
+    { label: "Thurday" },
+    { label: "Friday" },
+    { label: "Saturday" },
+    { label: "Sunday" },
   ];
   const contentTypes = adminBasicData.averageTiming.map(
     (status) => status._id ?? "unknown"
@@ -172,9 +172,9 @@ export default function UserHome({ adminBasicData }) {
     setValue(index);
   };
   return (
-    <div style={{ "margin-bottom": "61px" }}>
+    <div style={{ "marginBottom": "61px" }}>
       <Container>
-        <Card style={{ "border-radius": "25px" }}>
+        <Card style={{ "borderRadius": "25px" }}>
           <CardContent>
             <Box
               style={{
@@ -295,20 +295,22 @@ export default function UserHome({ adminBasicData }) {
             </ResponsiveContainer>
             <Box style={{ display: "flex", justifyContent: "space-around" }}>
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
                 id="daysDiag"
-                options={daysOfTheWeek}
+                options={daysOfTheWeek.map((day)=>day.label)}
                 onChange={(_, newValue) =>
-                  setdayFilter(newValue.map((node) => node.label))
+                  setdayFilter(newValue.map((node) => node))
                 }
-                getOptionLabel={(option) => option.label}
+                getOptionLabel={(option) => option}
                 renderInput={(params) => (
                   <TextField {...params} variant="standard" label="Day" />
                 )}
               />
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
@@ -323,6 +325,7 @@ export default function UserHome({ adminBasicData }) {
             </Box>
             <Box style={{ display: "flex", justifyContent: "space-around" }}>
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
@@ -335,6 +338,7 @@ export default function UserHome({ adminBasicData }) {
                 )}
               />
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
@@ -363,6 +367,7 @@ export default function UserHome({ adminBasicData }) {
             </ResponsiveContainer>
             <Box style={{ display: "flex", justifyContent: "space-around" }}>
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
@@ -375,6 +380,7 @@ export default function UserHome({ adminBasicData }) {
                 )}
               />
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
@@ -413,6 +419,7 @@ export default function UserHome({ adminBasicData }) {
             </ResponsiveContainer>
             <Box style={{ display: "flex", justifyContent: "space-around" }}>
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
@@ -425,6 +432,7 @@ export default function UserHome({ adminBasicData }) {
                 )}
               />
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
@@ -463,6 +471,7 @@ export default function UserHome({ adminBasicData }) {
             </ResponsiveContainer>
             <Box style={{ display: "flex", justifyContent: "space-around" }}>
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
@@ -475,6 +484,7 @@ export default function UserHome({ adminBasicData }) {
                 )}
               />
               <Autocomplete
+                filterSelectedOptions
                 multiple
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
