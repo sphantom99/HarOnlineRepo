@@ -150,7 +150,7 @@ export default function UserHome({ adminBasicData }) {
     { label: "Monday" },
     { label: "Tuesday" },
     { label: "Wednesday" },
-    { label: "Thurday" },
+    { label: "Thursday" },
     { label: "Friday" },
     { label: "Saturday" },
     { label: "Sunday" },
