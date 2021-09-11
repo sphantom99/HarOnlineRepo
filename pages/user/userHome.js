@@ -162,7 +162,7 @@ export default function UserHome() {
         serverISP: ispResponse.isp,
         startedDateTime: iter.startedDateTime,
         hour: moment(iter.startedDateTime).format('HH'),
-        day: new Date(moment(iter.startedDateTime).format('YYYY-MM-DD')).getDay(),
+        day: moment(iter.startedDateTime).format('ddddb '),
         serverIPAddress:
           iter.serverIPAddress?.replace('[', '').replace(']', '') === ''
           || ['127', '192', '10'].includes(

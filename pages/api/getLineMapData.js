@@ -154,5 +154,7 @@ export default async function getLineMapData(req, res) {
     res.json({ countWithIps, ipCoordinates, ipsPerUser });
   } catch (err) {
     console.log(err);
+    res.status(500);
+    res.send();
   }
 }

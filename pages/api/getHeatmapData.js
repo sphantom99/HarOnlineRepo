@@ -1,16 +1,16 @@
 /* eslint-disable no-loop-func */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable consistent-return */
-import { MongoClient } from 'mongodb';
-import axios from 'axios';
+import { MongoClient } from "mongodb";
+import axios from "axios";
 
 export default async function getHeatmapData(req, res) {
   try {
     const client = new MongoClient(process.env.MONGO_URI);
     await client.connect();
-    const db = client.db('WEB');
-    const collection = db.collection('Entries');
-    const uniqueIps = await collection.distinct('serverIPAddress', {
+    const db = client.db("WEB");
+    const collection = db.collection("Entries");
+    const uniqueIps = await collection.distinct("serverIPAddress", {
       username: req.body.username,
     });
     console.log(req.body.username);
@@ -33,14 +33,14 @@ export default async function getHeatmapData(req, res) {
     const clearUniqueIps = [];
     if (uniqueIps.length <= 100) {
       uniqueIps.map((item) => {
-        if (item !== '') {
+        if (item !== "") {
           clearUniqueIps.push(item);
         }
       });
       await axios
-        .post('http://ip-api.com/batch', clearUniqueIps, {
+        .post("http://ip-api.com/batch", clearUniqueIps, {
           headers: {
-            'Access-Control-Allow-Origin': '*',
+            "Access-Control-Allow-Origin": "*",
           },
         })
         .then((response) => {
@@ -55,25 +55,29 @@ export default async function getHeatmapData(req, res) {
         });
     } else if (uniqueIps.length > 100) {
       uniqueIps.map((item) => {
-        if (item !== '') {
+        if (item !== "") {
           clearUniqueIps.push(item);
         }
       });
 
       // console.log('unique ips without []::', clearUniqueIps);
       const rounds = Math.ceil(uniqueIps.length / 100);
-      console.log('rounds::', rounds);
+      console.log("rounds::", rounds);
       let i;
 
       for (i = 0; i < rounds; i++) {
         if (i !== rounds - 1) {
           console.log(`slice(${i * 100}, ${(i + 1) * 100})`);
           await axios
-            .post('http://ip-api.com/batch', clearUniqueIps.slice(i * 100, (i + 1) * 100), {
-              headers: {
-                'Access-Control-Allow-Origin': '*',
-              },
-            })
+            .post(
+              "http://ip-api.com/batch",
+              clearUniqueIps.slice(i * 100, (i + 1) * 100),
+              {
+                headers: {
+                  "Access-Control-Allow-Origin": "*",
+                },
+              }
+            )
             .then((response) => {
               if (response.status === 200) {
                 // console.log(response.data);
@@ -84,9 +88,9 @@ export default async function getHeatmapData(req, res) {
         } else {
           // console.log(`slice(${i * 100})`);
           await axios
-            .post('http://ip-api.com/batch', clearUniqueIps.slice(i * 100), {
+            .post("http://ip-api.com/batch", clearUniqueIps.slice(i * 100), {
               headers: {
-                'Access-Control-Allow-Origin': '*',
+                "Access-Control-Allow-Origin": "*",
               },
             })
             .then((response) => {
@@ -99,9 +103,14 @@ export default async function getHeatmapData(req, res) {
         }
       }
     }
-    const ipList = ipCoordinates.map((item) => ({ lat: item.lat, long: item.lon }));
+    const ipList = ipCoordinates.map((item) => ({
+      lat: item.lat,
+      long: item.lon,
+    }));
     res.json(ipList);
   } catch (err) {
     console.log(err);
+    res.status(500);
+    res.send();
   }
 }
