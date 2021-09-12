@@ -1,6 +1,3 @@
-/* eslint-disable no-loop-func */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable consistent-return */
 import { MongoClient } from "mongodb";
 import axios from "axios";
 
@@ -48,10 +45,6 @@ export default async function getLineMapData(req, res) {
       ])
       .toArray();
     const uniqueIps = await collection.distinct("serverIPAddress");
-    // countPerIp = countPerIp.map((item) => ({
-    //   count: item.count,
-    //   ip: item.ip?.replace('[', '').replace(']', ''),
-    // }));
     ipsPerUser = ipsPerUser.map((item) => ({
       client: item.client,
       ips: item.ips.filter((countIp) => countIp !== ""),
@@ -74,7 +67,6 @@ export default async function getLineMapData(req, res) {
         })
         .then((response) => {
           if (response.status === 200) {
-            // console.log(response.data);
             ipCoordinates = ipCoordinates.concat(
               response.data.map((item) => ({
                 ip: item.query,
@@ -95,14 +87,11 @@ export default async function getLineMapData(req, res) {
         }
       });
 
-      // console.log('unique ips without []::', clearUniqueIps);
       const rounds = Math.ceil(uniqueIps.length / 100);
-      // console.log('rounds::', rounds);
       let i;
 
       for (i = 0; i < rounds; i++) {
         if (i !== rounds - 1) {
-          // console.log(`slice(${i * 100}, ${(i + 1) * 100})`);
           await axios
             .post(
               "http://ip-api.com/batch",
@@ -115,7 +104,6 @@ export default async function getLineMapData(req, res) {
             )
             .then((response) => {
               if (response.status === 200) {
-                // console.log(response.data);
                 ipCoordinates = ipCoordinates.concat(
                   response.data.map((item) => ({
                     ip: item.query,
@@ -127,7 +115,6 @@ export default async function getLineMapData(req, res) {
               }
             });
         } else {
-          // console.log(`slice(${i * 100})`);
           await axios
             .post("http://ip-api.com/batch", clearUniqueIps.slice(i * 100), {
               headers: {
@@ -136,7 +123,6 @@ export default async function getLineMapData(req, res) {
             })
             .then((response) => {
               if (response.status === 200) {
-                // console.log(response.data);
                 ipCoordinates = ipCoordinates.concat(
                   response.data.map((item) => ({
                     ip: item.query,
