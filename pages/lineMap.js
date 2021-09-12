@@ -8,14 +8,14 @@ import React from "react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import { Card, CardContent, Container, Typography } from "@material-ui/core";
-import ReactMapGL, { Source, Layer, SVGOverlay } from "react-map-gl";
+import ReactMapGL, { Source, Layer } from "react-map-gl";
 
 import axios from "axios";
 
 const normalize = require("normalize-number");
 
-const mapBoxToken =
-  "pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ";
+// const mapBoxToken =
+//   "pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ";
 
 export async function getServerSideProps() {
   const info = await axios
@@ -95,7 +95,7 @@ export default function MapChart(props) {
               width="1120px"
               height="1000px"
               onViewportChange={setViewport}
-              mapboxApiAccessToken={mapBoxToken}
+              mapboxApiAccessToken={process.env.NEXT_PUBLIC_MAP_BOX}
             >
               <Source id="polylineLayer" type="geojson" data={multipleLines}>
                 <Layer

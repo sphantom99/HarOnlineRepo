@@ -130,7 +130,7 @@ export default function UserHome() {
       }
 
       const client = await fetch(
-        'http://api.ipstack.com/check?access_key=492ecef75baf8e594140fa9327af2a6c',
+        `http://api.ipstack.com/check?access_key=${process.env.NEXT_PUBLIC_GEO_API_KEY}`,
         {
           method: 'GET',
           credentials: 'omit',
@@ -144,7 +144,7 @@ export default function UserHome() {
       const ispResponse = await isp.json();
 
       const clientIp = await fetch(
-        'http://api.ipstack.com/check?access_key=492ecef75baf8e594140fa9327af2a6c',
+        `http://api.ipstack.com/check?access_key=${process.env.NEXT_PUBLIC_GEO_API_KEY}`,
         {
           method: 'GET',
           credentials: 'omit',
