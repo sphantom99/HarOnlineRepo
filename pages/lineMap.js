@@ -66,7 +66,7 @@ export default function MapChart(props) {
         geometry: {
           type: "LineString",
           coordinates: [
-            [clientItter.client.long, clientItter.client.lat],
+            [clientItter.client.longitude, clientItter.client.latitude],
             [item.coordinates.longitude, item.coordinates.latitude],
           ],
         },
