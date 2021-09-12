@@ -32,6 +32,7 @@ export default async function getUserStatistics(req, res) {
               } else {
                 res.status(200);
                 res.json({
+                  username: result.username,
                   lastUploadDate: result.lastUploadDate,
                   totalUploads: result.TotalUploads,
                   firstName: result.firstName,
