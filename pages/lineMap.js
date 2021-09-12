@@ -14,9 +14,6 @@ import axios from "axios";
 
 const normalize = require("normalize-number");
 
-// const mapBoxToken =
-//   "pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ";
-
 export async function getServerSideProps() {
   const info = await axios
     .get("http://localhost:3000/api/getLineMapData")
