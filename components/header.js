@@ -62,14 +62,14 @@ export default function header({ user, changeUserState, isAdmin }) {
               >
                 <MenuItem>
                   <Link href="/user/userHome" passHref>
-                    <a href="#" style={{ textDecoration: "none" }}>
+                    <a href="/user/userHome" style={{ textDecoration: "none" }}>
                       Home
                     </a>
                   </Link>
                 </MenuItem>
                 <MenuItem>
                   <Link href={`/user/profile/${user}`} passHref>
-                    <a href="#" style={{ textDecoration: "none" }}>
+                    <a href={`/user/profile/${user}`} style={{ textDecoration: "none" }}>
                       Profile
                     </a>
                   </Link>
@@ -77,7 +77,7 @@ export default function header({ user, changeUserState, isAdmin }) {
                 {isAdmin ? (
                   <MenuItem>
                     <Link href="/admin/adminHome" passHref>
-                      <a href="#" style={{ textDecoration: "none" }}>
+                      <a href="/admin/adminHome" style={{ textDecoration: "none" }}>
                         Admin DashBoard
                       </a>
                     </Link>

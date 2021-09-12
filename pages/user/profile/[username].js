@@ -46,7 +46,7 @@ export default function profile({ username }) {
     }
   }, []);
   return (
-    <Container>
+    <Container style={{ marginBottom: "50px" }}>
       <Card style={{ "border-radius": "25px" }}>
         <CardContent>
           <Box
