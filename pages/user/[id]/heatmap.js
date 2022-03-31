@@ -6,8 +6,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import MapGL, { Source, Layer } from "react-map-gl";
-import { Card, CardContent, Container, Typography } from "@material-ui/core";
-import AlbumIcon from "@material-ui/icons/Album";
+import { Card, CardContent, Container, Typography, Box } from "@material-ui/core";
+import { LabelImportant } from "@material-ui/icons";
 const mapBoxToken =
   "pk.eyJ1IjoicmF2ZW45OXAiLCJhIjoiY2tzdDAwOHBwMHU0aTMxcG5wdWZ0OW9mMSJ9.Pnc_9xkS8B72aotWuUEoiQ";
 const heatmapLayer = {
@@ -95,7 +95,7 @@ export default function heatmap(props) {
               variant="h4"
               style={{ marginBottom: "4%", marginLeft: "35%" }}
             >
-              Welcome to HeatMap
+              Requests HeatMap
             </Typography>
             <MapGL
               {...viewport}
@@ -110,22 +110,21 @@ export default function heatmap(props) {
                 </Source>
               )}
             </MapGL>
-            <p>
-              <AlbumIcon />
+            <Box display="flex" flexDirection="column" justifyContent="space-around" alignText="center">
+              <Box textAlign='center' > <LabelImportant sx={{color: '#112'}} style={{marginBottom: '-.5%'}} /> 
               Here you can see all the places to which you have sent a request.
-              <br />
-              <AlbumIcon />
-              The more yellow is a point, the more requests you have sent to
+              <br /></Box>
+              <Box textAlign='center'><LabelImportant sx={{color: '#112'}} style={{marginBottom: '-.5%'}} /> If the point is bright yellow, the more requests you have sent to
               that exact location.
-              <br />
-              <AlbumIcon />
-              If a location is faint blue, then it means it has received, just a
+              <br /></Box>
+              <Box textAlign='center'><LabelImportant sx={{color: '#112'}} style={{marginBottom: '-.5%'}} /> If a location is faint blue, then it means it has received, just a
               few requests.
-              <br />
-              <AlbumIcon />
-              All intensity of the colors has be normalized, according to the
-              number of requests sent that place.
-            </p>
+              <br /></Box>
+              <Box textAlign='center'><LabelImportant sx={{color: '#112'}} style={{marginBottom: '-.5%'}} /> If you can't see many points don't worry! Just upload a few more files!
+              <br /></Box>
+              <Box textAlign='center'><LabelImportant sx={{color: '#112'}} style={{marginBottom: '-.5%'}} /> All intensity of the colors has be normalized, according to the
+              number of requests sent that place.</Box>
+            </Box>
           </CardContent>
         </Card>
       </Container>

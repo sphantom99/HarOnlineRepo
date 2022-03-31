@@ -18,9 +18,12 @@ export default async function login(req, res) {
         // const secretKey = await generateSecret('HS256');
         const { payload } = await jwtDecrypt(jwt, secretKey);
         res.json({ username: payload.username, isAdmin: payload.isAdmin });
+      } else {
+        res.status(401)
+        res.json({message: 'Unauthorized'})
       }
     } else {
-      res.status(406);
+      res.status(404);
       res.json({ message: 'User Not Found' });
     }
   } catch (err) {

@@ -76,7 +76,7 @@ export default function MapChart(props) {
     features: lineArray,
   };
   return (
-    <div style={{ "margin-bottom": "61px" }}>
+    <div style={{ "marginBottom": "61px" }}>
       <Container>
         <Card>
           <CardContent>
@@ -84,7 +84,7 @@ export default function MapChart(props) {
               variant="h4"
               style={{ marginBottom: "4%", marginLeft: "35%" }}
             >
-              Welcome to ArcMap
+              Requests ArcMap
             </Typography>
             <ReactMapGL
               {...viewport}
