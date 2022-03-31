@@ -30,6 +30,9 @@
     "react-swipeable-views": "^0.14.0",
     "recharts": "^2.1.2"
   },
+  "engines":{
+    "node": "16.x"
+  },
   "scripts": {
     "dev": "next",
     "build": "next build",
