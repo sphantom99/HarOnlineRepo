@@ -7,7 +7,7 @@ export default async function getUserStatistics(req, res) {
     if (req.method === 'POST') {
       // console.log('it was a post method');
       // console.log(req);
-      const jwt = req.cookiesHarOnline
+      const jwt = req.cookies.HarOnline
       console.log(jwt);
       if (jwt) {
         const secretKey = await createSecretKey(Buffer.from(process.env.JWT_KEY));

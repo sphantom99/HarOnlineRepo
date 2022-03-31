@@ -7,7 +7,7 @@ export default async function login(req, res) {
       // console.log('it was a post method');
       // console.log(req);
 
-      const jwt = req.cookiesHarOnline
+      const jwt = req.cookies.HarOnline
       // validate
       if (jwt) {
         const secretKey = await createSecretKey(Buffer.from(process.env.JWT_KEY));
