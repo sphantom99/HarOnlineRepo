@@ -1,5 +1,4 @@
 import { createSecretKey } from 'crypto';
-import Cookies from 'Cookies';
 import { jwtDecrypt } from 'jose/jwt/decrypt';
 
 export default async function login(req, res) {
@@ -8,8 +7,7 @@ export default async function login(req, res) {
       // console.log('it was a post method');
       // console.log(req);
 
-      const cookies = Cookies(req, res);
-      const jwt = cookies.get('HarOnline');
+      const jwt = req.cookiesHarOnline
       // validate
       if (jwt) {
         const secretKey = await createSecretKey(Buffer.from(process.env.JWT_KEY));

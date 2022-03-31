@@ -30,8 +30,7 @@ export default async function login(req, res) {
           .setExpirationTime('2h')
           .encrypt(secretKey);
         console.log(jwt);
-        const cookies = Cookies(req, res);
-        cookies.set('HarOnline', jwt);
+        res.setHeader('Set-Cookie', `HarOnline=${jwt}; Secure; HttpOnly`)
         res.json({ message: 'OK' });
       } else {
         res.status(406);

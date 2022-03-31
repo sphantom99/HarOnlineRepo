@@ -202,7 +202,7 @@ export default function UserHome() {
   return (
     <div>
       <Container>
-        <Card style={{ "border-radius": "25px" }}>
+        <Card style={{ "borderRadius": "25px" }}>
           <CardContent>
             <Container style={{}}>
               <Box style={{ display: 'flex', justifyContent: 'center' }}>

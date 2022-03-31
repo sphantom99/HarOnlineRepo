@@ -10,8 +10,7 @@ export default async function processedUpload(req, res) {
       // console.log('it was a post method');
       // console.log(req);
 
-      const cookies = Cookies(req, res);
-      const jwt = cookies.get("HarOnline");
+      const jwt = req.cookies.HarOnline
       console.log(jwt);
       if (jwt) {
         const secretKey = await createSecretKey(
