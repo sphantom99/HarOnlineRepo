@@ -1,6 +1,5 @@
 import { MongoClient } from 'mongodb';
 import { createSecretKey } from 'crypto';
-import Cookies from 'Cookies';
 
 export default async function getUserStatistics(req, res) {
   try {

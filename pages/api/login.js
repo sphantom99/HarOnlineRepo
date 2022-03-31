@@ -1,6 +1,5 @@
 import { EncryptJWT } from 'jose/jwt/encrypt';
 import { createSecretKey } from 'crypto';
-import Cookies from 'Cookies';
 import { MongoClient } from 'mongodb';
 
 export default async function login(req, res) {

@@ -1,5 +1,4 @@
 import { createSecretKey } from 'crypto';
-import Cookies from 'Cookies';
 import { jwtDecrypt } from 'jose/jwt/decrypt';
 import { MongoClient } from 'mongodb';
 
