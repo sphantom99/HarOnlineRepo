@@ -14,7 +14,7 @@ export default async function login(req, res) {
         // const secretKey = await generateSecret('HS256');
         const { payload } = await jwtDecrypt(jwt, secretKey);
         if (payload.username) {
-          cookies.set('HarOnline', '', { expires: Date.now() });
+          res.setHeader('Set-Cookie',`HarOnline= ; Expires=${new Date(0)};`)
           res.status(200);
           res.json({ message: 'ok' });
         } else {

@@ -30,9 +30,7 @@ export default function MyApp(props) {
           setAdminState(value.data.isAdmin);
         })
         .catch(() => {
-          return;
         });
-      return resp.data.username;
     } catch (err) {
       console.log(err);
     }

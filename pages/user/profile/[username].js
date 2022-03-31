@@ -35,11 +35,13 @@ export default function profile({ username }) {
   const classes = useStyles();
   const router = useRouter();
   const [result, setResult] = useState(null);
-  useEffect(async () => {
+  useEffect(() => {
     try {
+      async function getUserStatistics(){
       const resp = await axios.post("/api/getUserStatistics", { username });
       console.log(resp.data);
-      setResult(resp.data);
+      setResult(resp.data);}
+      getUserStatistics();
     } catch (err) {
       console.log(err);
       setResult(null);

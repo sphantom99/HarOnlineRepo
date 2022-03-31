@@ -98,50 +98,62 @@ export default function UserHome({ adminBasicData }) {
   const [pie2IspFilter, setPie2IspFilter] = useState([]);
   const [pie2Data, setPie2Data] = useState([]);
   const [value, setValue] = useState(0);
-  useEffect(async () => {
-    const dataReq = await axios.post("/api/getDiagramData", {
-      dayFilter,
-      contentTypeFilter,
-      methodFilter,
-      ispFilter,
-    });
-    console.log(dayFilter, contentTypeFilter, methodFilter, ispFilter);
-    setDiagramData(dataReq.data);
+  useEffect(() => {
+    async function getDiagramData() {
+      const dataReq = await axios.post("/api/getDiagramData", {
+        dayFilter,
+        contentTypeFilter,
+        methodFilter,
+        ispFilter,
+      });
+      console.log(dayFilter, contentTypeFilter, methodFilter, ispFilter);
+      setDiagramData(dataReq.data);
+    }
+    getDiagramData();
   }, [dayFilter, contentTypeFilter, methodFilter, ispFilter]);
 
-  useEffect(async () => {
+  useEffect(() => {
     try {
-      const result = await axios.post("/api/getHistogramData", {
-        contentHistogramFilter,
-        ispHistogramFilter,
-      });
-      setHistogramData(result.data);
+      async function getHistogramData() {
+        const result = await axios.post("/api/getHistogramData", {
+          contentHistogramFilter,
+          ispHistogramFilter,
+        });
+        setHistogramData(result.data);
+      }
+      getHistogramData();
     } catch (err) {
       setHistogramData(null);
     }
   }, [contentHistogramFilter, ispHistogramFilter]);
 
-  useEffect(async () => {
+  useEffect(() => {
     try {
-      const result = await axios.post("/api/getMinMax", {
-        contentPieFilter,
-        ispPieFilter,
-      });
-      setPieData(result.data);
-      console.log(pieData);
+      async function getMinMax() {
+        const result = await axios.post("/api/getMinMax", {
+          contentPieFilter,
+          ispPieFilter,
+        });
+        setPieData(result.data);
+        console.log(pieData);
+      }
+      getMinMax();
     } catch (err) {
       setPieData(null);
     }
   }, [contentPieFilter, ispPieFilter]);
 
-  useEffect(async () => {
+  useEffect(() => {
     try {
-      const result = await axios.post("/api/getCacheStatistics", {
-        pie2ContentFilter,
-        pie2IspFilter,
-      });
-      setPie2Data(result.data);
-      console.log(pie2Data);
+      async function getCacheStatistics() {
+        const result = await axios.post("/api/getCacheStatistics", {
+          pie2ContentFilter,
+          pie2IspFilter,
+        });
+        setPie2Data(result.data);
+        console.log(pie2Data);
+      }
+      getCacheStatistics();
     } catch (err) {
       setPie2Data(null);
     }
@@ -172,9 +184,9 @@ export default function UserHome({ adminBasicData }) {
     setValue(index);
   };
   return (
-    <div style={{ "marginBottom": "61px" }}>
+    <div style={{ marginBottom: "61px" }}>
       <Container>
-        <Card style={{ "borderRadius": "25px" }}>
+        <Card style={{ borderRadius: "25px" }}>
           <CardContent>
             <Box
               style={{
@@ -300,7 +312,7 @@ export default function UserHome({ adminBasicData }) {
                 style={{ minWidth: "20%", marginBottom: "5%" }}
                 disableCloseOnSelect
                 id="daysDiag"
-                options={daysOfTheWeek.map((day)=>day.label)}
+                options={daysOfTheWeek.map((day) => day.label)}
                 onChange={(_, newValue) =>
                   setdayFilter(newValue.map((node) => node))
                 }
