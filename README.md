@@ -1,15 +1,11 @@
-# Next.js example
+# HarOnline
+
+HarOnline is a website developed as an assignment for the WEB subject of my university. The user couldupload an .har file and the app would analyse it and show the user the geo locations of all the places his browser had made requests. Also developed an admin dashboard including statistics about the system itself.
 
 ## How to use
 
-Download the example [or clone the repo](https://github.com/mui-org/material-ui):
-
+Donwload and extract the repo. You will also need to set up a mongoDB database where the har files will be stored containing 2 Collections (Users, Entries) 
 <!-- #default-branch-switch -->
-
-```sh
-curl https://codeload.github.com/mui-org/material-ui/tar.gz/next | tar -xz --strip=2  material-ui-next/examples/nextjs
-cd nextjs
-```
 
 Install it and run:
 
@@ -18,27 +14,3 @@ npm install
 npm run dev
 ```
 
-or:
-
-<!-- #default-branch-switch -->
-
-[![Edit on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/mui-org/material-ui/tree/next/examples/nextjs)
-
-## The idea behind the example
-
-The project uses [Next.js](https://github.com/zeit/next.js), which is a framework for server-rendered React apps.
-It includes `@material-ui/core` and its peer dependencies, including `emotion`, the default style engine in Material-UI v5.
-If you prefer, you can [use styled-components instead](https://next.material-ui.com/guides/interoperability/#styled-components).
-
-## The link component
-
-Next.js has [a custom Link component](https://nextjs.org/docs/api-reference/next/link).
-The example folder provides adapters for usage with Material-UI.
-More information [in the documentation](https://next.material-ui.com/guides/routing/#next-js).
-
-## What's next?
-
-<!-- #default-branch-switch -->
-
-You now have a working example project.
-You can head back to the documentation, continuing browsing it from the [templates](https://next.material-ui.com/getting-started/templates/) section.
